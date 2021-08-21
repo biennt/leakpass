@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;
-var dbstring = process.env.DB || "mongodb://192.168.31.6:27017/pwd";
+var dbstring = process.env.DB || "mongodb://localhost/pwd";
 
 mongoose.connect(dbstring, { useNewUrlParser: true, useUnifiedTopology: true });
 
