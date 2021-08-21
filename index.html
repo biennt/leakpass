@@ -154,9 +154,9 @@ function SHA1(msg) {
       } else {
       var hashedpass = SHA1(psw.value);
       $.ajax({url: "https://leakedpass.bienlab.com/api/" + hashedpass, success: function(result){
-      document.getElementById("result").innerHTML = "Oh no! Your password has been leaked! (" + result.count + " times)";
+      document.getElementById("result").innerHTML = "Oh no! The password was leaked! (" + result.count + " times)";
       }, error: function(result) {
-      document.getElementById("result").innerHTML = "Your password hasn't been leaked!";
+      document.getElementById("result").innerHTML = "The password was not leaked!";
       }
       }); }
     }
@@ -166,7 +166,7 @@ function SHA1(msg) {
 </head>
 <body>
 <br>
-<h3 align='center'>Enter your password</h3>
+<h3 align='center'>Enter a password</h3>
 <form action="/" method="GET">
   <div class="form-group" align="center">
     <input type="password" class="form-control" name="psw" id="psw" placeholder="Password" required><br>
