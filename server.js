@@ -3,6 +3,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var sha1 = require('./models/sha1');
+var jssha1 = require('js-sha1');
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -15,6 +17,34 @@ mongoose.connect(dbstring, { useNewUrlParser: true, useUnifiedTopology: true });
 var router = express.Router();
 
 app.use('/api', router);
+
+router.get('/raw/:rawpass', function(req, res){
+var txtrawpass = req.params.rawpass;
+var hash = jssha1.create();
+var hashedpass = "";
+if (txtrawpass.length > 0) {
+  hash.update(txtrawpass);
+  hashedpass = hash.hex().toUpperCase();
+  sha1.findOne({ "hashpass": hashedpass }, function(err, sha1s ){
+    if (err) {
+      console.log('Unexpected error. URI=' + req.url);
+      res.status(500).send('Unexpected error');
+    } else {
+      if (sha1s == null) {
+        console.log('Not found! URI=' + req.url);
+        res.status(404).json({ count: 0});
+      } else {
+        console.log('Found! URI=' + req.url);
+        res.json(sha1s);
+      }
+    }
+    });  
+} else {
+  res.status(500).send('no password was provided');
+}
+});
+
+
 
 router.get('/:hashedpass', function(req, res){
 var txthashedpass = req.params.hashedpass.toUpperCase();
