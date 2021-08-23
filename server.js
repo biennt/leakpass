@@ -27,14 +27,11 @@ if (txtrawpass.length > 0) {
   hashedpass = hash.hex().toUpperCase();
   sha1.findOne({ "hashpass": hashedpass }, function(err, sha1s ){
     if (err) {
-      console.log('Unexpected error. URI=' + req.url);
       res.status(500).send('Unexpected error');
     } else {
       if (sha1s == null) {
-        console.log('Not found! URI=' + req.url);
         res.status(404).json({ count: 0});
       } else {
-        console.log('Found! URI=' + req.url);
         res.json(sha1s);
       }
     }
@@ -43,8 +40,6 @@ if (txtrawpass.length > 0) {
   res.status(500).send('no password was provided');
 }
 });
-
-
 
 router.get('/:hashedpass', function(req, res){
 var txthashedpass = req.params.hashedpass.toUpperCase();
