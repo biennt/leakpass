@@ -16,7 +16,7 @@ if ($handle) {
           fwrite($myfile, $txt);
       }
       $i++;
-      if ($i==1000) {
+      if ($i==10000) {
         $txt="])";
         fwrite($myfile, $txt);
         fclose($myfile);
