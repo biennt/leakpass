@@ -31,7 +31,7 @@ if ($handle) {
     $txt="])";
     fwrite($myfile, $txt);
     fclose($myfile);
-    system("mongosh mongodb://localhost/pwd onefile.js");
+    system("mongo mongodb://localhost/pwd onefile.js");
     system("rm -f onefile.js");
 
 } else {
