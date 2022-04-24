@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;
-var dbstring = process.env.DB || "mongodb://localhost/pwd";
+var dbstring = process.env.DB || "mongodb://leakpass:matkhau@127.0.0.1/pwd";
 
 mongoose.connect(dbstring, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -50,10 +50,8 @@ if (txthashedpass.length === 40) {
       res.status(500).send('Unexpected error');
     } else {
       if (sha1s == null) {
-        console.log('Not found! URI=' + req.url);
         res.status(404).json({ count: 0});
       } else {
-        console.log('Found! URI=' + req.url);
         res.json(sha1s);
       }
     }
